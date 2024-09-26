@@ -60,7 +60,7 @@ namespace OBSWebServer
                 }
                 else
                 {
-                    responseString = $"<html><h1 style=color:white;font-size:300%;font-family:Arial>Gorilla Tag<br>Not In Room</h1><meta http-equiv=refresh content=4></html>";
+                    responseString = $"<html><h1 style=color:white;font-size:300%;font-family:Arial>Gorilla Tag<br>Not In Room</h1><meta http-equiv=refresh content=4> <img src="{image}"></img></html>";
                 }
                 byte[] buffer = Encoding.UTF8.GetBytes(responseString);
                 response.ContentLength64 = buffer.Length;
