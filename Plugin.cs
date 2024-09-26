@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using System;
 using UnityEngine;
 using System.Net;
@@ -22,6 +22,7 @@ namespace OBSWebServer
         private Thread listenerThread;
         string roomCode = "Null";
         string gameMode = "Null";
+        string image = "Null";
         ConfigEntry<bool> showCodePubs;
         ConfigEntry<bool> showCodePrivates;
 
@@ -35,6 +36,7 @@ namespace OBSWebServer
             /* Code here runs after the game initializes (i.e. GorillaLocomotion.Player.Instance != null) */
             showCodePubs = Config.Bind("Settings", "Show Room Code In Publics", true, "This is whether it should show your room code when you are in a public lobby.");
             showCodePrivates = Config.Bind("Settings", "Show Room Code In Privates", false, "This is whether it should show your room code when you are in a private lobby.");
+            image = Config.Bind("Settings", "For putting a image (if you dont wanna a image put this blank.", "https://static.wikia.nocookie.net/character-stats-and-profiles/images/f/ff/Gorilla_%28Monke.png/revision/latest/scale-to-width-down/800?cb=20240302030939");
             HarmonyPatches.ApplyHarmonyPatches();
             listener = new HttpListener();
             listener.Prefixes.Add("http://localhost:8080/");
@@ -54,7 +56,7 @@ namespace OBSWebServer
                 if (PhotonNetwork.InRoom)
                 {
                     string map = FormatMap(MapPatch.ActiveZones.First().ToString().ToUpper());
-                    responseString = $"<html><h1 style=color:white;font-size:300%;font-family:Arial>Gorilla Tag<br>Room Code: {roomCode.ToUpper()}<br>Map: {map}<br>Gamemode: {gameMode}</h1><meta http-equiv=refresh content=4></html>";
+                    responseString = $"<html><h1 style=color:white;font-size:300%;font-family:Arial>Gorilla Tag<br>Room Code: {roomCode.ToUpper()}<br>Map: {map}<br>Gamemode: {gameMode}</h1><meta http-equiv=refresh content=4> <img src="{image}"></img></html>";
                 }
                 else
                 {
